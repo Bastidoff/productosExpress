@@ -2,19 +2,19 @@ extends ../layout/index
 
 block main
   block form
-    form(action="" class="formularioLogin")
+    form(action="/registro" class="formularioLogin" method='POST')
       div 
-        label(for="usuario") Nombre
-        input( id="usuario" type="text" )  
+        label(for="nombre") Nombre
+        input( id="nombre" type="text" name='nombre')  
       div 
-        label(for="usuario") Correo
-        input( id="usuario" type="text" )  
+        label(for="email") Correo
+        input( id="email" type="passw" name='email')  
       div 
-        label(for="paswword") Contraseña
-        input( id="paswword" type="text" )  
+        label(for="password") Contraseña
+        input( id="password" type="password" name='contrasena')  
       div 
-        label(for="paswword") Confirmar Contraseña
-        input( id="paswword" type="text" )  
+        label(for="cpassword") Confirmar Contraseña
+        input( id="cpassword" type="password" name='confirmar')  
       div 
         input( id="iniciar" type="submit" value="Iniciar Sesión")
       div(class="enlaces")

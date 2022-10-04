@@ -4,22 +4,20 @@ import { dataBase } from "../config/dataBase.js";
 const Usuario = dataBase.define('usuarios', {
   nombre: {
     type: Sequelize.STRING,
-    allowNull: false
+    // allowNull: false
   },
   email: {
     type: Sequelize.STRING,
-    allowNull: false
+    // allowNull: false
   },
   contrasena: {
     type: Sequelize.STRING,
-    allowNull: false
+    // allowNull: false
   },
   confirmar: {
     type: Sequelize.STRING,
-    allowNull: false
+    // allowNull: false
   }
 });
 
-export {
-  Usuario
-}
+export default Usuario

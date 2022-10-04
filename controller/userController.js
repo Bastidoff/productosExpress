@@ -16,8 +16,18 @@ const fomrularioRecuperar = (req, res) => {
   })
 }
 
+/* Metodos CRUD */
+
+const crearUsuario = async (req, res) => {
+  const user = await Usuario.create(req.body)
+  res.json(user);
+  console.log(req.body)
+  console.log(`Usuario Creado`);
+}
+
 export {
   fomrularioLogin,
   fomrularioRegistro,
-  fomrularioRecuperar
+  fomrularioRecuperar,
+  crearUsuario
 }
