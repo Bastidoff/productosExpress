@@ -36,7 +36,7 @@ main{
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 35%;
+  width: 30%;
   height: auto;
   gap: 4%;
   background-color: #09407A;
@@ -50,7 +50,7 @@ main{
   align-items: flex-start;
   flex-direction: column;
   margin: 2%;
-  width: 70%;
+  width: 50%;
 }
 
 .formularioLogin div input{
