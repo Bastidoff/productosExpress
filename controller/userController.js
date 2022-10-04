@@ -1,3 +1,5 @@
+import Usuario from '../models/UserModel.js'
+
 const fomrularioLogin = (req, res) => {
   res.render(`user/login`, {
     nombreVista: 'Login'
