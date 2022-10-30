@@ -31,6 +31,21 @@ const crearUsuario = async (req, res) => {
     })
   }
 
+  const validarUsuario = await Usuario.findOne({where: {correo:req.body.correo}})
+
+  if(validarUsuario){
+    return res.render('auth/registro', {
+      nombreVista: 'Nuevo Usuario',
+      errores:[{msg: 'El correo ya existe en la base de datos'}],
+      usuario: {
+        nombre: req.body.nombre,
+        correo: req.body.correo,
+      }
+    })
+  }
+  console.log('El Correo ya esta registrado en la base de datos')
+  return
+
   res.json(listadoErrores.array())
 
   const usuario = await Usuario.create(req.body)
