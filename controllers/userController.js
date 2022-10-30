@@ -30,8 +30,9 @@ const crearUsuario = async (req, res) => {
       }
     })
   }
+  const {nombre, correo, contrasena} = req.body
 
-  const validarUsuario = await Usuario.findOne({where: {correo:req.body.correo}})
+  const validarUsuario = await Usuario.findOne({where: {correo}})
 
   if(validarUsuario){
     return res.render('auth/registro', {
@@ -43,13 +44,14 @@ const crearUsuario = async (req, res) => {
       }
     })
   }
-  console.log('El Correo ya esta registrado en la base de datos')
-  return
 
-  res.json(listadoErrores.array())
 
-  const usuario = await Usuario.create(req.body)
-  res.json(usuario)
+  await Usuario.create({
+    nombre,
+    correo, 
+    contrasena,
+    token: 1234
+  })
 }
 
 const formularioRecuperar = (req, res)=>{
