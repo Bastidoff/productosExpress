@@ -1,25 +1,26 @@
 {
-  "name": "proyectoinicial",
+  "name": "register-node",
   "version": "1.0.0",
-  "description": "Proyecto sencillo creado con Node JS usando Express, PUG bajo la arquitectura de MVC",
+  "description": "Proyecto de Node JS usando Pug, MVC, Express y otras herramientas",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "server": "nodemon index.js"
   },
-  "keywords": [
-    "MVC",
-    "PUG",
-    "Express",
-    "JavaScript"
-  ],
-  "author": "Jaime Zapata Valencia",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaimezzapata/productos.git"
+  },
+  "author": "Jaime Zapata",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaimezzapata/productos/issues"
+  },
+  "homepage": "https://github.com/jaimezzapata/productos#readme",
   "dependencies": {
-    "express": "^4.18.1",
-    "mysql2": "^2.3.3",
+    "express": "^4.18.2",
     "nodemon": "^2.0.20",
-    "pug": "^3.0.2",
-    "sequelize": "^6.23.2"
+    "pug": "^3.0.2"
   }
 }

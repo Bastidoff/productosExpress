@@ -1,25 +1,15 @@
-import express from 'express';
-import { userRoute } from './router/userRouter.js';
-import { dataBase } from './config/dataBase.js';
-const app = express();
-const puerto = 3000;
+// Importanto la dependencia y extrayeno la funcion de exress
+import express from 'express'
+import { userRouter } from './routes/userRouter.js'
 
-try {
-  await dataBase.authenticate();
-  dataBase.sync();
-  console.log(`La coneccion a la base de datos es correcta`)
-} catch (error) {
-  console.log(`No se puede conectar a la base de datos`)
-  console.log(`Motivo: ${error}`)
-}
+// Realizando la instancia para trabajar con express
+const app = express()
+// Definiendo el puerto en el cual correra el servidor
+const puerto = 3000
 
-app.use(express.urlencoded({extended:true}))
+app.use('/', userRouter)
 
-app.set('view engine', 'pug')
-app.set('views', './views')
-app.set(express.static('public'))
-app.use(userRoute);
-
+// Levantando el servidor en el peurto con la funcion lister de express
 app.listen(puerto, ()=>{
-  console.log(`Servidor corriendo en el puerto ${puerto}`);
-});
+  console.log(`Servidor corriendo en el puerto ${puerto}`)
+})
