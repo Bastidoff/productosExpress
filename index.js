@@ -7,7 +7,10 @@ const app = express()
 // Definiendo el puerto en el cual correra el servidor
 const puerto = 3000
 
-app.use('/', userRouter)
+app.use('/auth', userRouter)
+
+app.set('view engine', 'pug')
+app.set('views', './views')
 
 // Levantando el servidor en el peurto con la funcion lister de express
 app.listen(puerto, ()=>{
