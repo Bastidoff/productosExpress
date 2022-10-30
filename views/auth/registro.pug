@@ -2,12 +2,12 @@ extends ../layout/index
 
 block formulario
   h1 Formulario de Registro
-  form(action="" class='formulario') 
+  form(class='formulario' action="/auth/registro" method="POST") 
     input(class='form-item' id="nombre" name="nombre" placeholder="Nombre" type="text")
     input(class='form-item' id="correo" name="correo" placeholder="Correo" type="email")
-    input(class='form-item' id="contarsena" name="contarsena" placeholder="Contarsena" type="password")
+    input(class='form-item' id="contrasena" name="contrasena" placeholder="Contrasena" type="password")
     input(class='form-item' id="rcontrasena" name="rcontrasena" placeholder="Repetir contrasena" type="password")
-    input(class='btnGuardar' id="btnGuardar" name="btnGuardar" value="Crear Usuario" type="submit")
+    input(class='btnGuardar' id="btnGuardar" value="Crear Usuario" type="submit")
   section(class='enlaces')
-    a(href="login") Ya tiene una cuenta?
-    a(href="recuperar") Olvido la contarsena?
+    a(href="/auth/login") Ya tiene una cuenta?
+    a(href="recuperar") Olvido la contrasena?

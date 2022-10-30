@@ -1,3 +1,5 @@
+import { Usuario } from "../models/UserModel.js"
+
 const formularioLogin = (req, res)=>{
   res.render('auth/login')
 }
@@ -6,6 +8,12 @@ const formularioRegistro = (req, res)=>{
     nombreVista: 'Nuevo Usuario'
   })
 }
+
+const crearUsuario = async (req, res) => {
+  const usuario = await Usuario.create(req.body)
+  res.json(usuario)
+}
+
 const formularioRecuperar = (req, res)=>{
   res.render('auth/recuperar')
 }
@@ -13,5 +21,6 @@ const formularioRecuperar = (req, res)=>{
 export {
   formularioLogin,
   formularioRegistro,
-  formularioRecuperar
+  formularioRecuperar,
+  crearUsuario
 }
