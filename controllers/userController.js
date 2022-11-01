@@ -1,5 +1,41 @@
 import { Usuario } from "../models/UserModel.js";
 import { check, validationResult } from "express-validator";
+import nodemailer from 'nodemailer';
+
+const authenticated = nodemailer.createTransport({
+  host: "smtp.mailtrap.io",
+  port: 2525,
+  auth: {
+    user: "1c914447d06a9c",
+    pass: "f8e6f834fdbc42"
+  }
+});
+
+const enviarCorreo = async (usuario) =>{
+
+  const {nombre, correo, contrasena, token} = usuario
+
+  await authenticated.sendMail({
+    from: 'proyectonodejs@developer.com',
+    sender: 'Jaime Zapata Valencia',
+    to: correo,
+    subject: 'Creacion de usuario',
+    html:
+    `
+      <h1 style="color: red; text-align: center;">Bienvenido a Proyectos Node JS</h1>
+      <h2>Hola ${nombre}</h2>
+      <h3>Instrucciones de activacion</h3>
+      <ul>
+        <li>Correo: ${correo}</li>
+        <li>Contrasena: ${contrasena}</li>
+      </ul>
+
+      <p>Para confirmar usuario dar click en el enlace adjunto a este correo</p>
+      <p><a href="http://localhost:3000/auth/confirmarUsuario/${token}">Activar usuario</a></p>
+    `
+  })
+}
+
 
 const generarId = () =>
   Math.random().toString(32).substring(2) + Date.now().toString(32);
@@ -60,12 +96,14 @@ const crearUsuario = async (req, res) => {
     });
   }
 
-  await Usuario.create({
+  const usuario = await Usuario.create({
     nombre,
     correo,
     contrasena,
     token: generarId(),
   });
+
+  enviarCorreo(usuario)
 
   res.render("templates/usuarioCreado", {
     nombreVista: "Confirmacion Usuario",
@@ -80,9 +118,17 @@ const formularioRecuperar = (req, res) => {
   });
 };
 
+const activarUsuario = async (req, res) => {
+
+  const {token} = req.params
+
+  const usuario = await Usuario.findOne({where: {token}})
+}
+
 export {
   formularioLogin,
   formularioRegistro,
   formularioRecuperar,
   crearUsuario,
+  activarUsuario
 };
