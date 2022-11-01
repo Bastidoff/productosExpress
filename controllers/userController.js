@@ -121,8 +121,24 @@ const formularioRecuperar = (req, res) => {
 const activarUsuario = async (req, res) => {
 
   const {token} = req.params
-
   const usuario = await Usuario.findOne({where: {token}})
+
+  if(usuario){
+    usuario.token = null;
+    usuario.estado = true;
+    await usuario.save();
+    return res.render("templates/usuarioCreado", {
+      nombreVista: "Confirmacion Usuario",
+      mensaje:
+        "Activacion de usuario correcta. Por favor iniciar sesion",
+    });
+  }
+
+  res.render("templates/usuarioCreado", {
+    nombreVista: "Confirmacion Usuario",
+    mensaje:
+      "No se pudo activar la cuenta. Token errado o expirado",
+  });
 }
 
 export {
