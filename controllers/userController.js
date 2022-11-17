@@ -1,44 +1,6 @@
 import { Usuario } from "../models/UserModel.js";
 import { check, validationResult } from "express-validator";
-import nodemailer from 'nodemailer';
-
-const authenticated = nodemailer.createTransport({
-  host: "smtp.mailtrap.io",
-  port: 2525,
-  auth: {
-    user: "1c914447d06a9c",
-    pass: "f8e6f834fdbc42"
-  }
-});
-
-const enviarCorreo = async (usuario) =>{
-
-  const {nombre, correo, contrasena, token} = usuario
-
-  await authenticated.sendMail({
-    from: 'proyectonodejs@developer.com',
-    sender: 'Jaime Zapata Valencia',
-    to: correo,
-    subject: 'Creacion de usuario',
-    html:
-    `
-      <h1 style="color: red; text-align: center;">Bienvenido a Proyectos Node JS</h1>
-      <h2>Hola ${nombre}</h2>
-      <h3>Instrucciones de activacion</h3>
-      <ul>
-        <li>Correo: ${correo}</li>
-        <li>Contrasena: ${contrasena}</li>
-      </ul>
-
-      <p>Para confirmar usuario dar click en el enlace adjunto a este correo</p>
-      <p><a href="http://localhost:3000/auth/confirmarUsuario/${token}">Activar usuario</a></p>
-    `
-  })
-}
-
-
-const generarId = () =>
-  Math.random().toString(32).substring(2) + Date.now().toString(32);
+import { generarId, enviarCorreo } from "../helper/funciones.js";
 
 const formularioLogin = (req, res) => {
   res.render("auth/login", {
@@ -63,10 +25,6 @@ const crearUsuario = async (req, res) => {
   await check("contrasena")
     .isLength({ min: 5 })
     .withMessage("La contrasena debe tener minimo 5 caracteres")
-    .run(req);
-  await check("rcontrasena")
-    .equals("contrasena")
-    .withMessage("Las contrasenas no coinciden")
     .run(req);
 
   let listadoErrores = validationResult(req);
@@ -103,12 +61,12 @@ const crearUsuario = async (req, res) => {
     token: generarId(),
   });
 
-  enviarCorreo(usuario)
+  enviarCorreo(usuario);
 
   res.render("templates/usuarioCreado", {
     nombreVista: "Confirmacion Usuario",
     mensaje:
-      "Revisa tu correo electronico para confirmar la creacion de usuario",
+      "Revisa tu correo electrónico para confirmar la creación de usuario",
   });
 };
 
@@ -128,9 +86,9 @@ const activarUsuario = async (req, res) => {
     usuario.estado = true;
     await usuario.save();
     return res.render("templates/usuarioCreado", {
-      nombreVista: "Confirmacion Usuario",
+      nombreVista: "Confirmación Usuario",
       mensaje:
-        "Activacion de usuario correcta. Por favor iniciar sesion",
+        "Activación de usuario correcta. Por favor iniciar sesión",
     });
   }
 

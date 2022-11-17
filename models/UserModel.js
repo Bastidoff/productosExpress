@@ -18,12 +18,12 @@ const Usuario = dataBase.define('usuario', {
   token: DataTypes.STRING,
   estado: DataTypes.BOOLEAN
 }, {
-  hooks: {
+  /* hooks: {
     beforeCreate: async function(usuario){
       const salt = await bcrypt.genSalt(10)
       usuario.contrasena = await bcrypt.hash(usuario.contrasena, salt)
     }
-  }
+  } */
 })
 
 export{
